@@ -1,30 +1,25 @@
 <template>
-  <h1 class="text-white center">Задач пока нет</h1>
-  <template >
-    <h3 class="text-white">Всего активных задач: 0</h3>
-    <div class="card">
-      <h2 class="card-title">
-        Название задачи
-        <AppStatus :type="'done'" />
-      </h2>
-      <p>
-        <strong>
-          <small>
-            {{new Date().toLocaleDateString()}}
-          </small>
-        </strong>
-      </p>
-      <button class="btn primary">Посмотреть</button>
-    </div>
+  <h1 class="text-white center" v-if="tasks.length === 0">Задач пока нет</h1>
+  <template v-else>
+    <h3 class="text-white">Всего активных задач: {{ tasks.length }}</h3>
+    <app-task v-for="item in tasks" :key="item.id" :title="item.title" :status="item.status"></app-task>
   </template>
 </template>
 
 <script>
-import AppStatus from '../components/AppStatus'
+import AppTask from '@/components/AppTask'
+import { useStore } from 'vuex'
 
 export default {
+  setup () {
+    const store = useStore()
+
+    return {
+      tasks: store.state.tasks
+    }
+  },
   components: {
-    AppStatus
+    AppTask
   }
 }
 </script>
