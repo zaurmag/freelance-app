@@ -1,9 +1,9 @@
 <template>
   <div class="card">
     <h2>{{ task.title }}</h2>
-    <p><strong>Статус</strong>: <AppStatus :type="'done'" /></p>
-    <p><strong>Дэдлайн</strong>: {{ new Date().toLocaleDateString() }}</p>
-    <p><strong>Описание</strong>: Описание задачи</p>
+    <p><strong>Статус</strong>: <AppStatus :type="task.status" /></p>
+    <p><strong>Дэдлайн</strong>: {{ task.deadline }}</p>
+    <p><strong>Описание</strong>: {{ task.description }}</p>
     <div>
       <button class="btn">Взять в работу</button>
       <button class="btn primary">Завершить</button>
