@@ -11,14 +11,9 @@
         </small>
       </strong>
     </p>
-<!--    <router-link to="/task">-->
-<!--      <button class="btn primary">Посмотреть</button>-->
-<!--    </router-link>-->
-
-    <router-link class="btn primary" to="/task">
-      Посмотреть
+    <router-link :to="'/task/' + id">
+      <button class="btn primary">Посмотреть</button>
     </router-link>
-
   </div>
 </template>
 
@@ -26,7 +21,7 @@
 import AppStatus from '../components/AppStatus'
 
 export default {
-  props: ['title', 'status'],
+  props: ['title', 'status', 'id'],
   components: {
     AppStatus
   }

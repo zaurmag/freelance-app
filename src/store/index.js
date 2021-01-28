@@ -16,6 +16,13 @@ export default createStore({
         deadline: 'дата',
         description: 'Описание...',
         status: 'active'
+      },
+      {
+        id: 3,
+        title: 'Тестовое название задачи 3',
+        deadline: 'дата',
+        description: 'Описание...',
+        status: 'active'
       }
     ]
   },

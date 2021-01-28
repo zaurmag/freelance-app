@@ -17,7 +17,14 @@ const routes = [
   {
     path: '/task',
     name: 'Task',
-    component: Task
+    component: Task,
+    children: [
+      {
+        path: ':pathId',
+        component: Task,
+        props: true
+      }
+    ]
   }
 ]
 

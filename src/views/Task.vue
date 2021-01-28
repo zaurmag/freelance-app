@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <h2>Название задачи</h2>
+    <h2>{{ task.title }}</h2>
     <p><strong>Статус</strong>: <AppStatus :type="'done'" /></p>
     <p><strong>Дэдлайн</strong>: {{ new Date().toLocaleDateString() }}</p>
     <p><strong>Описание</strong>: Описание задачи</p>
@@ -17,14 +17,23 @@
 
 <script>
 import AppStatus from '../components/AppStatus'
+import { useStore } from 'vuex'
 
 export default {
+  setup () {
+    const store = useStore()
+
+    return {
+      tasks: store.state.tasks
+    }
+  },
   components: {
     AppStatus
+  },
+  computed: {
+    task () {
+      return this.tasks.find(e => e.id === +this.$route.params.pathId)
+    }
   }
 }
 </script>
-
-<style scoped>
-
-</style>
