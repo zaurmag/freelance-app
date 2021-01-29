@@ -19,6 +19,11 @@ export default createStore({
       task.status = payload.status
     }
   },
+  getters: {
+    getActiveTask (state) {
+      return state.tasks.filter(e => e.status === 'active')
+    }
+  },
   actions: {
   },
   modules: {
