@@ -13,6 +13,10 @@ export default createStore({
         description: payload.descr,
         status: 'active'
       })
+    },
+    changeStatus (state, payload) {
+      const task = state.tasks.find(e => e.id === payload.id)
+      task.status = payload.status
     }
   },
   actions: {

@@ -5,9 +5,9 @@
     <p><strong>Дэдлайн</strong>: {{ task.deadline }}</p>
     <p><strong>Описание</strong>: {{ task.description }}</p>
     <div>
-      <button class="btn">Взять в работу</button>
-      <button class="btn primary">Завершить</button>
-      <button class="btn danger">Отменить</button>
+      <button class="btn" @click="btnHandler('pending')">Взять в работу</button>
+      <button class="btn primary" @click="btnHandler('done')">Завершить</button>
+      <button class="btn danger" @click="btnHandler('canceled')">Отменить</button>
     </div>
   </div>
   <h3 class="text-white center">
@@ -17,6 +17,7 @@
 
 <script>
 import AppStatus from '../components/AppStatus'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -25,6 +26,15 @@ export default {
   computed: {
     task () {
       return this.$store.state.tasks.find(e => e.id === this.$route.params.pathId)
+    }
+  },
+  methods: {
+    ...mapMutations(['changeStatus']),
+    btnHandler (status) {
+      this.changeStatus({
+        id: this.task.id,
+        status
+      })
     }
   }
 }

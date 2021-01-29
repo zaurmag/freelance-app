@@ -1,5 +1,5 @@
 <template>
-  <form class="card" @submit.prevent="submit">
+  <form class="card" @submit.prevent="submitForm">
     <h1>Создать новую задачу</h1>
     <div class="form-control">
       <label for="title">Название</label>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -36,9 +37,11 @@ export default {
     }
   },
   methods: {
-    submit () {
+    ...mapMutations(['submit']),
+
+    submitForm () {
       if (this.isValid) {
-        this.$store.commit('submit', {
+        this.submit({
           title: this.title,
           deadline: this.date,
           description: this.descr
