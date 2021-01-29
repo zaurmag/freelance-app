@@ -7,7 +7,7 @@
     <p>
       <strong>
         <small>
-          {{new Date().toLocaleDateString()}}
+          {{ deadline }}
         </small>
       </strong>
     </p>
@@ -21,7 +21,7 @@
 import AppStatus from '../components/AppStatus'
 
 export default {
-  props: ['title', 'status', 'id'],
+  props: ['title', 'deadline', 'status', 'id'],
   components: {
     AppStatus
   }

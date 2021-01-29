@@ -7,12 +7,16 @@ export default createStore({
   mutations: {
     submit (state, payload) {
       state.tasks.push({
-        id: Date.now().toString(),
+        id: payload.id,
         title: payload.title,
-        deadline: payload.date,
-        description: payload.descr,
-        status: 'active'
+        deadline: payload.deadline,
+        description: payload.description,
+        status: payload.status
       })
+    },
+    changeStatus (state, payload) {
+      const task = state.tasks.find(e => e.id === payload.id)
+      task.status = payload.status
     }
   },
   actions: {
