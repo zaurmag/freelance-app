@@ -21,15 +21,10 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
 
 export default {
   data () {
-    const store = useStore()
-
     return {
-      taskId: 0,
-      tasks: store.state.tasks,
       title: '',
       date: '',
       descr: ''
@@ -43,14 +38,11 @@ export default {
   methods: {
     submit () {
       if (this.isValid) {
-        this.tasks.push({
-          id: this.taskId++,
+        this.$store.commit('submit', {
           title: this.title,
           deadline: this.date,
-          description: this.descr,
-          status: 'active'
+          description: this.descr
         })
-
         this.$router.push('/')
       }
     }

@@ -1,4 +1,4 @@
-/*
+/**
  * Статусы: ['active', 'done', 'cancelled', 'pending']
  * Composition API
  * Vuex

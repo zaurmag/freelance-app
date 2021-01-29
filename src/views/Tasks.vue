@@ -8,14 +8,11 @@
 
 <script>
 import AppTask from '@/components/AppTask'
-import { useStore } from 'vuex'
 
 export default {
-  setup () {
-    const store = useStore()
-
-    return {
-      tasks: store.state.tasks
+  computed: {
+    tasks () {
+      return this.$store.state.tasks
     }
   },
   components: {

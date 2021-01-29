@@ -17,22 +17,14 @@
 
 <script>
 import AppStatus from '../components/AppStatus'
-import { useStore } from 'vuex'
 
 export default {
-  setup () {
-    const store = useStore()
-
-    return {
-      tasks: store.state.tasks
-    }
-  },
   components: {
     AppStatus
   },
   computed: {
     task () {
-      return this.tasks.find(e => e.id === +this.$route.params.pathId)
+      return this.$store.state.tasks.find(e => e.id === this.$route.params.pathId)
     }
   }
 }
