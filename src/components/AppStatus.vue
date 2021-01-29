@@ -1,13 +1,39 @@
 <template>
-  <span :class="['badge']">{{ type }}</span>
+  <span :class="['badge', statusValue.theme]">{{ statusValue.text }}</span>
 </template>
 
 <script>
 export default {
   props: ['type'],
+  data () {
+    return {
+      statuses: [
+        {
+          name: 'done',
+          text: 'Завершен',
+          theme: 'primary'
+        },
+        {
+          name: 'active',
+          text: 'Активный',
+          theme: 'primary'
+        },
+        {
+          name: 'canceled',
+          text: 'Отменен',
+          theme: 'danger'
+        },
+        {
+          name: 'pending',
+          text: 'Выполняется',
+          theme: 'warning'
+        }
+      ]
+    }
+  },
   computed: {
     statusValue () {
-      return this.$store.state.statuses
+      return this.statuses.find(e => e.name === this.type)
     }
   }
 }

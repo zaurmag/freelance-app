@@ -2,13 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    tasks: [],
-    statuses: {
-      done: 'Завершен',
-      active: 'Активный',
-      canceled: 'Отменен',
-      pending: 'Выполняется'
-    }
+    tasks: []
   },
   mutations: {
     submit (state, payload) {
