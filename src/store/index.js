@@ -6,12 +6,15 @@ export default createStore({
   },
   mutations: {
     submit (state, payload) {
+      const dateDeadline = new Date(payload.deadline)
+      const dateNow = new Date()
+
       state.tasks.push({
         id: payload.id,
         title: payload.title,
         deadline: payload.deadline,
         description: payload.description,
-        status: payload.status
+        status: dateDeadline < dateNow ? 'canceled' : payload.status
       })
     },
     changeStatus (state, payload) {
