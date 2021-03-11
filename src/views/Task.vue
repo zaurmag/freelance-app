@@ -17,25 +17,30 @@
 
 <script>
 import AppStatus from '../components/AppStatus'
-import { mapMutations } from 'vuex'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 export default {
-  components: {
-    AppStatus
-  },
-  computed: {
-    task () {
-      return this.$store.state.tasks.find(e => e.id === this.$route.params.id)
-    }
-  },
-  methods: {
-    ...mapMutations(['changeStatus']),
-    btnHandler (status) {
-      this.changeStatus({
-        id: this.task.id,
+  setup (_, { commit }) {
+    const store = useStore()
+    const route = useRoute()
+    const task = computed(() => store.state.tasks.find(e => e.id === route.params.id))
+
+    const btnHandler = status => {
+      store.commit('changeStatus', {
+        id: task.value.id,
         status
       })
     }
+
+    return {
+      task,
+      btnHandler
+    }
+  },
+  components: {
+    AppStatus
   }
 }
 </script>
