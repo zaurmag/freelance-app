@@ -2,20 +2,23 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    tasks: []
+    tasks: JSON.parse(localStorage.getItem('tasks')) || []
   },
   mutations: {
     submit (state, payload) {
       const dateDeadline = new Date(payload.deadline)
-      const dateNow = new Date()
 
-      state.tasks.push({
+      const data = {
         id: payload.id,
         title: payload.title,
         deadline: payload.deadline,
         description: payload.description,
-        status: dateDeadline < dateNow ? 'canceled' : payload.status
-      })
+        status: dateDeadline < new Date() ? 'canceled' : payload.status
+      }
+
+      state.tasks.push(data)
+
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
     },
     changeStatus (state, payload) {
       const task = state.tasks.find(e => e.id === payload.id)
@@ -23,12 +26,7 @@ export default createStore({
     }
   },
   getters: {
-    getActiveTask (state) {
-      return state.tasks.filter(e => e.status === 'active')
-    }
-  },
-  actions: {
-  },
-  modules: {
+    getActiveTask: state => state.tasks.filter(e => e.status === 'active'),
+    tasks: state => state.tasks
   }
 })

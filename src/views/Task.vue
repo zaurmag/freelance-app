@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" v-if="task.id === $route.params.id">
     <h2>{{ task.title }}</h2>
     <p><strong>Статус</strong>: <AppStatus :type="task.status" /></p>
     <p><strong>Дэдлайн</strong>: {{ task.deadline }}</p>
@@ -10,8 +10,8 @@
       <button class="btn danger" @click="btnHandler('canceled')">Отменить</button>
     </div>
   </div>
-  <h3 class="text-white center">
-    Задачи с id = <strong>Tут АЙДИ</strong> нет.
+  <h3 class="text-white center" v-else>
+    Задачи с id = <strong>{{ task.id }}</strong> нет.
   </h3>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     task () {
-      return this.$store.state.tasks.find(e => e.id === this.$route.params.pathId)
+      return this.$store.state.tasks.find(e => e.id === this.$route.params.id)
     }
   },
   methods: {
