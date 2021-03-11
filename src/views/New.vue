@@ -13,7 +13,7 @@
 
     <div class="form-control">
       <label for="description">Описание</label>
-      <textarea id="description" v-model="descr"></textarea>
+      <textarea id="description" v-model="description"></textarea>
     </div>
 
     <button class="btn primary" :disabled="!isValid">Создать</button>
@@ -21,34 +21,38 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { useStore } from 'vuex'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
-  data () {
-    return {
-      title: '',
-      date: '',
-      descr: ''
-    }
-  },
-  computed: {
-    isValid () {
-      return this.title !== '' && this.date !== '' && this.descr !== ''
-    }
-  },
-  methods: {
-    ...mapMutations(['submit']),
-    submitForm () {
-      if (this.isValid) {
-        this.submit({
+  setup (_, { commit }) {
+    const title = ref('')
+    const date = ref('')
+    const description = ref('')
+    const store = useStore()
+    const router = useRouter()
+
+    const isValid = computed(() => title.value !== '' && date.value !== '' && description.value !== '')
+    const submitForm = () => {
+      if (isValid.value) {
+        store.commit('submit', {
           id: Date.now().toString(),
-          title: this.title,
-          deadline: this.date,
-          description: this.descr,
+          title: title.value,
+          deadline: date.value,
+          description: description.value,
           status: 'active'
         })
-        this.$router.push('/')
+        router.push('/')
       }
+    }
+
+    return {
+      isValid,
+      title,
+      date,
+      description,
+      submitForm
     }
   }
 }
