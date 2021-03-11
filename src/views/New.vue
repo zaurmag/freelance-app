@@ -29,9 +29,9 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
-  setup (_, { commit }) {
+  setup () {
     const title = ref('')
-    const date = ref('')
+    const date = ref(null)
     const description = ref('')
     const store = useStore()
     const router = useRouter()
@@ -39,10 +39,10 @@ export default {
     const isValid = computed(() => title.value !== '' && date.value !== '' && description.value !== '')
     const submitForm = () => {
       if (isValid.value) {
-        store.commit('submit', {
+        store.dispatch('createTask', {
           id: Date.now().toString(),
           title: title.value,
-          deadline: date.value,
+          deadline: new Date(date.value).setHours(23, 59, 59, 999),
           description: description.value,
           status: 'active'
         })

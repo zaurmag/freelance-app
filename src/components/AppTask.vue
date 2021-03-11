@@ -7,21 +7,27 @@
     <p>
       <strong>
         <small>
-          {{ deadline }}
+          {{ new Date(deadline).toLocaleDateString() }}
         </small>
       </strong>
     </p>
-    <router-link :to="'/task/' + id">
-      <button class="btn primary">Посмотреть</button>
-    </router-link>
+    <button class="btn primary" @click="go(id)">Посмотреть</button>
   </div>
 </template>
 
 <script>
 import AppStatus from '../components/AppStatus'
+import { useRouter } from 'vue-router'
 
 export default {
   props: ['title', 'deadline', 'status', 'id'],
+  setup () {
+    const router = useRouter()
+
+    return {
+      go: id => router.push(`/task/${id}`)
+    }
+  },
   components: {
     AppStatus
   }

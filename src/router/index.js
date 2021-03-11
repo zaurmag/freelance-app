@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Tasks from '@/views/Tasks'
 
 const routes = [
   {
     path: '/',
     name: 'Tasks',
-    component: () => import('@/views/Tasks')
+    component: Tasks
   },
   {
     path: '/new',
@@ -12,16 +13,10 @@ const routes = [
     component: () => import('@/views/New')
   },
   {
-    path: '/task',
+    path: '/task/:id',
     name: 'Task',
-    component: () => import('@/views/Task'),
-    children: [
-      {
-        path: ':id',
-        component: () => import('@/views/Task'),
-        props: true
-      }
-    ]
+    props: true,
+    component: () => import('@/views/Task')
   }
 ]
 
